@@ -1,17 +1,1609 @@
 ---
-
+import Layout from '../layouts/Layout.astro';
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<Layout title="SkillForge — The SKILL.md Factory">
+  <!-- Navigation -->
+  <nav class="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-xl border-b border-[var(--color-outline-variant)]">
+    <div class="max-w-7xl mx-auto px-6 h-[72px] flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-[14px] bg-[var(--color-primary)] flex items-center justify-center text-white">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/>
+            <polyline points="14 2 14 8 20 8"/>
+            <path d="M9 15l2 2 4-4"/>
+          </svg>
+        </div>
+        <div>
+          <span class="text-xl font-bold tracking-tight text-[var(--color-on-surface)]">SkillForge</span>
+        </div>
+      </div>
+      <div class="flex items-center gap-3">
+        <div class="hidden sm:flex items-center">
+          <script type='text/javascript' src='https://storage.ko-fi.com/cdn/widget/Widget_2.js'></script>
+          <script type='text/javascript'>kofiwidget2.init('Support me on Ko-fi', '#343538', 'W7W01YQF8I');kofiwidget2.draw();</script>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <main class="pt-[72px]">
+    <!-- Hero Section -->
+    <section class="relative overflow-hidden px-6 pt-16 pb-12 md:pt-24 md:pb-16">
+      <div class="absolute inset-0 pointer-events-none">
+        <div class="absolute top-0 right-0 w-[600px] h-[600px] bg-gradient-to-bl from-[var(--color-primary-container)] to-transparent rounded-full opacity-40 blur-3xl translate-x-1/3 -translate-y-1/3"></div>
+        <div class="absolute bottom-0 left-0 w-[400px] h-[400px] bg-gradient-to-tr from-[var(--color-secondary-container)] to-transparent rounded-full opacity-30 blur-3xl -translate-x-1/4 translate-y-1/4"></div>
+      </div>
+      
+      <div class="max-w-4xl mx-auto relative">
+        <div class="text-center mb-12 animate-slide-up">
+          <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[var(--color-primary-container)] text-[var(--color-on-primary-container)] text-sm font-medium mb-6">
+            <span class="w-2 h-2 rounded-full bg-[var(--color-primary)] animate-pulse"></span>
+            Production-ready SKILL.md generator
+          </div>
+          
+          <h1 class="text-5xl md:text-7xl font-bold tracking-tight text-[var(--color-on-surface)] mb-6 text-balance leading-[1.1]">
+            Turn any workflow into a<br />
+            <span class="text-[var(--color-primary)]">world-class skill</span>
+          </h1>
+          
+          <p class="text-lg md:text-xl text-[var(--color-on-surface-variant)] max-w-2xl mx-auto leading-relaxed">
+            Describe your domain or workflow in a sentence. SkillForge generates a complete, production-grade 
+            <code class="px-2 py-0.5 rounded-md bg-[var(--color-surface-variant)] text-[var(--color-primary)] font-mono text-sm">SKILL.md</code> 
+            following Grok Build's best practices.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Input Section -->
+    <section class="px-6 pb-8">
+      <div class="max-w-3xl mx-auto">
+        <div class="material-card p-6 md:p-8 animate-slide-up stagger-2">
+          <label for="description-input" class="block text-sm font-semibold text-[var(--color-on-surface)] mb-3">
+            Describe your workflow or domain
+          </label>
+          <textarea
+            id="description-input"
+            class="material-input min-h-[120px] mb-4"
+            placeholder="Example: Security audit for web applications — check for XSS, CSRF, insecure dependencies, and misconfigured headers. Output a detailed report with severity ratings and remediation steps."
+          ></textarea>
+          
+          <div class="flex flex-wrap gap-2 mb-5">
+            <span class="text-xs font-medium text-[var(--color-outline)] uppercase tracking-wider mr-2">Quick starters:</span>
+            <button class="material-chip" data-example="1">React component builder</button>
+            <button class="material-chip" data-example="2">Database schema migration</button>
+            <button class="material-chip" data-example="3">API documentation writer</button>
+            <button class="material-chip" data-example="4">Code review assistant</button>
+            <button class="material-chip" data-example="5">Accessibility auditor</button>
+          </div>
+          
+          <div class="flex flex-col sm:flex-row gap-3 items-start sm:items-center">
+            <button id="generate-btn" class="material-button material-button--filled h-12 px-8 text-base flex-1 sm:flex-none">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 3v18"/>
+                <path d="M3 12h18"/>
+              </svg>
+              Generate SKILL.md
+            </button>
+            <button id="clear-btn" class="material-button material-button--outlined h-12 px-6">
+              Clear
+            </button>
+            <button id="try-example-btn" class="text-sm text-[var(--color-primary)] font-medium hover:underline underline-offset-4 mt-2 sm:mt-0 sm:ml-2">
+              Try an example →
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Output Section -->
+    <section id="output-section" class="px-6 pb-20 hidden">
+      <div class="max-w-6xl mx-auto">
+        <div class="flex items-center justify-between mb-6">
+          <div>
+            <h2 class="text-2xl font-bold text-[var(--color-on-surface)]">Your SKILL.md</h2>
+            <p class="text-sm text-[var(--color-on-surface-variant)] mt-1">Preview and copy to your project</p>
+          </div>
+          <div class="flex gap-3">
+            <button id="copy-btn" class="material-button material-button--tonal h-10 px-5">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
+                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+              </svg>
+              <span id="copy-label">Copy to clipboard</span>
+            </button>
+            <button id="download-btn" class="material-button material-button--filled h-10 px-5">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                <polyline points="7 10 12 15 17 10"/>
+                <line x1="12" y1="15" x2="12" y2="3"/>
+              </svg>
+              Download
+            </button>
+          </div>
+        </div>
+        
+        <div class="grid lg:grid-cols-5 gap-6">
+          <!-- Preview -->
+          <div class="lg:col-span-3">
+            <div class="material-card overflow-hidden">
+              <div class="flex items-center gap-2 px-5 py-3 bg-[#1C1B1F] border-b border-white/10">
+                <div class="w-3 h-3 rounded-full bg-[#FF5F57]"></div>
+                <div class="w-3 h-3 rounded-full bg-[#FEBC2E]"></div>
+                <div class="w-3 h-3 rounded-full bg-[#28C840]"></div>
+                <span class="ml-3 text-xs text-white/50 font-mono">SKILL.md</span>
+              </div>
+              <div class="code-preview max-h-[70vh] overflow-y-auto" id="preview-panel"></div>
+            </div>
+          </div>
+          
+          <!-- Meta Panel -->
+          <div class="lg:col-span-2 space-y-4">
+            <div class="material-card p-6">
+              <h3 class="text-sm font-semibold text-[var(--color-on-surface)] uppercase tracking-wider mb-4">Skill Details</h3>
+              <div class="space-y-4">
+                <div>
+                  <label class="text-xs text-[var(--color-outline)] block mb-1">Name</label>
+                  <div id="meta-name" class="font-mono text-sm text-[var(--color-on-surface)] bg-[var(--color-surface-variant)] px-3 py-2 rounded-xl"></div>
+                </div>
+                <div>
+                  <label class="text-xs text-[var(--color-outline)] block mb-1">Domain</label>
+                  <div id="meta-domain" class="text-sm text-[var(--color-on-surface)]"></div>
+                </div>
+                <div>
+                  <label class="text-xs text-[var(--color-outline)] block mb-1">Sections</label>
+                  <div id="meta-sections" class="flex flex-wrap gap-1.5"></div>
+                </div>
+                <div>
+                  <label class="text-xs text-[var(--color-outline)] block mb-1">Estimated Lines</label>
+                  <div id="meta-lines" class="text-sm text-[var(--color-on-surface)] font-mono"></div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="material-card p-6">
+              <h3 class="text-sm font-semibold text-[var(--color-on-surface)] uppercase tracking-wider mb-3">Best Practices Checklist</h3>
+              <ul class="space-y-2.5">
+                <li class="flex items-start gap-2.5 text-sm text-[var(--color-on-surface-variant)]">
+                  <svg class="w-5 h-5 text-[var(--color-secondary)] shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+                  YAML frontmatter with name & description
+                </li>
+                <li class="flex items-start gap-2.5 text-sm text-[var(--color-on-surface-variant)]">
+                  <svg class="w-5 h-5 text-[var(--color-secondary)] shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+                  Description includes what + when to use
+                </li>
+                <li class="flex items-start gap-2.5 text-sm text-[var(--color-on-surface-variant)]">
+                  <svg class="w-5 h-5 text-[var(--color-secondary)] shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+                  Anti-patterns section included
+                </li>
+                <li class="flex items-start gap-2.5 text-sm text-[var(--color-on-surface-variant)]">
+                  <svg class="w-5 h-5 text-[var(--color-secondary)] shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+                  Verification steps defined
+                </li>
+                <li class="flex items-start gap-2.5 text-sm text-[var(--color-on-surface-variant)]">
+                  <svg class="w-5 h-5 text-[var(--color-secondary)] shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+                  Example invocations provided
+                </li>
+                <li class="flex items-start gap-2.5 text-sm text-[var(--color-on-surface-variant)]">
+                  <svg class="w-5 h-5 text-[var(--color-secondary)] shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+                  Imperative/infinitive voice used
+                </li>
+              </ul>
+            </div>
+            
+            <div class="material-card p-6 bg-gradient-to-br from-[var(--color-primary-container)] to-[var(--color-tertiary-container)]">
+              <h3 class="text-sm font-semibold text-[var(--color-on-primary-container)] uppercase tracking-wider mb-2">Installation</h3>
+              <p class="text-sm text-[var(--color-on-primary-container)]/80 mb-3">
+                Drop this skill into your skills directory:
+              </p>
+              <code class="block font-mono text-xs bg-black/10 text-[var(--color-on-primary-container)] px-4 py-3 rounded-xl">
+                ~/.config/agents/skills/<br/>
+                ~/.kimi/skills/<br/>
+                ~/.claude/skills/
+              </code>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Recent Skills -->
+    <section id="recent-skills" class="px-6 py-12 hidden">
+      <div class="max-w-6xl mx-auto">
+        <div class="flex items-center justify-between mb-6">
+          <div>
+            <h2 class="text-2xl font-bold text-[var(--color-on-surface)]">Recent Skills</h2>
+            <p class="text-sm text-[var(--color-on-surface-variant)] mt-1">Your generated skills are saved locally</p>
+          </div>
+          <button id="clear-recent-btn" class="material-button material-button--outlined h-9 px-4 text-sm">
+            Clear all
+          </button>
+        </div>
+        <div id="recent-skills-grid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+      </div>
+    </section>
+
+    <!-- How It Works -->
+    <section class="px-6 py-20 bg-[var(--color-surface-variant)]/50">
+      <div class="max-w-5xl mx-auto">
+        <div class="text-center mb-14">
+          <h2 class="text-3xl md:text-4xl font-bold text-[var(--color-on-surface)] mb-4">How SkillForge works</h2>
+          <p class="text-lg text-[var(--color-on-surface-variant)] max-w-2xl mx-auto">
+            Built on thousands of hours studying the best skills in the ecosystem
+          </p>
+        </div>
+        
+        <div class="grid md:grid-cols-3 gap-8">
+          <div class="material-card p-8 text-center animate-slide-up stagger-1">
+            <div class="w-14 h-14 rounded-[20px] bg-[var(--color-primary-container)] text-[var(--color-on-primary-container)] flex items-center justify-center mx-auto mb-5 text-2xl font-bold">
+              1
+            </div>
+            <h3 class="text-lg font-bold text-[var(--color-on-surface)] mb-2">Analyze</h3>
+            <p class="text-sm text-[var(--color-on-surface-variant)] leading-relaxed">
+              Parses your description to identify domain, action type, and workflow patterns using a comprehensive classification engine.
+            </p>
+          </div>
+          
+          <div class="material-card p-8 text-center animate-slide-up stagger-2">
+            <div class="w-14 h-14 rounded-[20px] bg-[var(--color-secondary-container)] text-[var(--color-on-secondary-container)] flex items-center justify-center mx-auto mb-5 text-2xl font-bold">
+              2
+            </div>
+            <h3 class="text-lg font-bold text-[var(--color-on-surface)] mb-2">Generate</h3>
+            <p class="text-sm text-[var(--color-on-surface-variant)] leading-relaxed">
+              Builds a tailored SKILL.md with proper YAML frontmatter, domain-specific workflows, anti-patterns, and verification steps.
+            </p>
+          </div>
+          
+          <div class="material-card p-8 text-center animate-slide-up stagger-3">
+            <div class="w-14 h-14 rounded-[20px] bg-[var(--color-tertiary-container)] text-[var(--color-on-tertiary-container)] flex items-center justify-center mx-auto mb-5 text-2xl font-bold">
+              3
+            </div>
+            <h3 class="text-lg font-bold text-[var(--color-on-surface)] mb-2">Ship</h3>
+            <p class="text-sm text-[var(--color-on-surface-variant)] leading-relaxed">
+              One-click copy or download as <code class="font-mono text-xs bg-[var(--color-surface-variant)] px-1.5 py-0.5 rounded">SKILL.md</code>. Drop into your skills folder and start using immediately.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="px-6 py-10 border-t border-[var(--color-outline-variant)]">
+      <div class="max-w-5xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
+        <div class="flex items-center gap-2">
+          <div class="w-8 h-8 rounded-xl bg-[var(--color-primary)] flex items-center justify-center text-white">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/>
+              <polyline points="14 2 14 8 20 8"/>
+            </svg>
+          </div>
+          <span class="font-semibold text-[var(--color-on-surface)]">SkillForge</span>
+        </div>
+        <div class="flex items-center gap-4">
+          <a href="https://github.com/noCode-Human/skillforge" target="_blank" rel="noopener" class="text-sm text-[var(--color-outline)] hover:text-[var(--color-primary)] transition-colors flex items-center gap-1.5">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+            Star on GitHub
+          </a>
+          <span class="text-[var(--color-outline-variant)]">·</span>
+          <p class="text-sm text-[var(--color-outline)]">
+            Open-source template. Use it freely.
+          </p>
+        </div>
+      </div>
+    </footer>
+  </main>
+
+  <script is:inline>
+    // ============================================================
+    // SKILL.md Generation Engine
+    // ============================================================
+
+    const DOMAIN_PATTERNS = {
+      code: ['code', 'programming', 'software', 'development', 'debug', 'refactor', 'build', 'implement', 'function', 'class', 'module', 'component', 'api', 'backend', 'frontend', 'fullstack'],
+      design: ['design', 'ui', 'ux', 'interface', 'visual', 'layout', 'typography', 'color', 'component', 'screen', 'page', 'mockup', 'prototype', 'figma'],
+      data: ['data', 'database', 'sql', 'query', 'analytics', 'metric', 'report', 'chart', 'visualization', 'etl', 'pipeline', 'warehouse', 'table', 'schema'],
+      security: ['security', 'audit', 'vulnerability', 'penetration', 'scan', 'compliance', 'gdpr', 'hipaa', 'encrypt', 'auth', 'oauth', 'jwt', 'xss', 'csrf', 'injection'],
+      devops: ['deploy', 'infrastructure', 'cloud', 'aws', 'gcp', 'azure', 'docker', 'kubernetes', 'k8s', 'ci/cd', 'pipeline', 'terraform', 'serverless', 'hosting'],
+      content: ['content', 'write', 'document', 'blog', 'article', 'copy', 'marketing', 'seo', 'social', 'email', 'newsletter', 'description', 'narrative'],
+      testing: ['test', 'testing', 'unit test', 'integration', 'e2e', 'cypress', 'playwright', 'jest', 'vitest', 'coverage', 'mock', 'fixture', 'assertion'],
+      review: ['review', 'pr', 'pull request', 'code review', 'comment', 'feedback', 'approve', 'reject', 'suggestion', 'improvement'],
+      migration: ['migration', 'migrate', 'upgrade', 'update', 'version', 'deprecat', 'legacy', 'modernize', 'convert', 'transform'],
+      optimization: ['optimize', 'performance', 'speed', 'fast', 'slow', 'bottleneck', 'cache', 'lazy', 'bundle', 'memory', 'cpu', 'render'],
+    };
+
+    const ACTION_PATTERNS = {
+      build: ['build', 'create', 'generate', 'make', 'scaffold', 'construct', 'develop', 'write', 'author'],
+      audit: ['audit', 'review', 'inspect', 'check', 'scan', 'analyze', 'assess', 'evaluate', 'examine'],
+      optimize: ['optimize', 'improve', 'enhance', 'refine', 'speed up', 'accelerate', 'boost', 'tune'],
+      debug: ['debug', 'fix', 'repair', 'resolve', 'troubleshoot', 'diagnose', 'solve', 'patch'],
+      migrate: ['migrate', 'upgrade', 'update', 'convert', 'transform', 'modernize', 'port'],
+      test: ['test', 'verify', 'validate', 'check', 'assert', 'confirm', 'ensure'],
+      deploy: ['deploy', 'ship', 'release', 'publish', 'launch', 'push', 'deliver'],
+    };
+
+    const EXAMPLE_PROMPTS = {
+      1: "React component builder — generate reusable, accessible React components with TypeScript, Storybook stories, and unit tests. Follow atomic design principles and the project's existing component patterns.",
+      2: "Database schema migration — plan and execute safe schema migrations for PostgreSQL. Generate migration scripts with rollback plans, validate data integrity, and handle zero-downtime deployments.",
+      3: "API documentation writer — generate OpenAPI specs and developer documentation from code. Include request/response examples, error codes, authentication flows, and SDK usage samples.",
+      4: "Code review assistant — analyze pull requests for bugs, security issues, performance problems, and style violations. Suggest specific improvements with code examples and prioritize by severity.",
+      5: "Accessibility auditor — scan web interfaces for WCAG 2.1 AA violations. Check contrast ratios, keyboard navigation, ARIA usage, focus management, and screen reader compatibility. Output prioritized remediation plan.",
+    };
+
+    function detectDomain(description) {
+      const lower = description.toLowerCase();
+      const scores = {};
+      for (const [domain, keywords] of Object.entries(DOMAIN_PATTERNS)) {
+        scores[domain] = keywords.filter(k => lower.includes(k)).length;
+      }
+      const best = Object.entries(scores).sort((a, b) => b[1] - a[1])[0];
+      return best[1] > 0 ? best[0] : 'general';
+    }
+
+    function detectAction(description) {
+      const lower = description.toLowerCase();
+      const scores = {};
+      for (const [action, keywords] of Object.entries(ACTION_PATTERNS)) {
+        scores[action] = keywords.filter(k => lower.includes(k)).length;
+      }
+      const best = Object.entries(scores).sort((a, b) => b[1] - a[1])[0];
+      return best[1] > 0 ? best[0] : 'build';
+    }
+
+    function toKebabCase(str) {
+      return str
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, '-')
+        .replace(/^-+|-+$/g, '')
+        .substring(0, 64);
+    }
+
+    function generateSkillName(description, domain, action) {
+      // Extract key nouns and verbs
+      const words = description.toLowerCase().split(/\s+/);
+      const stopWords = new Set(['a', 'an', 'the', 'and', 'or', 'for', 'to', 'in', 'on', 'at', 'with', 'from', 'by', 'of', 'is', 'are', 'was', 'were', 'be', 'been', 'being', 'have', 'has', 'had', 'do', 'does', 'did', 'will', 'would', 'could', 'should', 'may', 'might', 'must', 'can', 'this', 'that', 'these', 'those', 'i', 'you', 'he', 'she', 'it', 'we', 'they', 'me', 'him', 'her', 'us', 'them', 'my', 'your', 'his', 'her', 'its', 'our', 'their']);
+      
+      const meaningful = words.filter(w => w.length > 2 && !stopWords.has(w.replace(/[^a-z]/g, '')));
+      
+      // Try to find a good noun phrase
+      let candidate = '';
+      if (meaningful.length >= 2) {
+        const first = meaningful[0];
+        const second = meaningful.find(w => w !== first) || meaningful[1] || 'skill';
+        candidate = `${first}-${second}`;
+      } else if (meaningful.length === 1) {
+        candidate = `${action}-${meaningful[0]}`;
+      } else {
+        candidate = `${action}-${domain}`;
+      }
+      
+      return toKebabCase(candidate);
+    }
+
+    function generateDescription(description, domain, action) {
+      const domainLabels = {
+        code: 'code and software development',
+        design: 'UI/UX design and visual interfaces',
+        data: 'data processing and analytics',
+        security: 'security auditing and vulnerability assessment',
+        devops: 'DevOps and infrastructure management',
+        content: 'content creation and documentation',
+        testing: 'testing and quality assurance',
+        review: 'code review and quality assessment',
+        migration: 'migration and modernization',
+        optimization: 'performance optimization',
+        general: 'general workflow automation',
+      };
+      
+      const actionLabels = {
+        build: 'Build and generate',
+        audit: 'Audit and assess',
+        optimize: 'Optimize and improve',
+        debug: 'Debug and fix',
+        migrate: 'Migrate and upgrade',
+        test: 'Test and verify',
+        deploy: 'Deploy and ship',
+      };
+      
+      const domainLabel = domainLabels[domain] || domain;
+      const actionLabel = actionLabels[action] || action;
+      
+      return `${actionLabel} ${domainLabel} workflows. Use when working with ${description.toLowerCase().replace(/\.$/, '')}. Triggers on requests involving ${domain}-related tasks, ${action} operations, or when the user needs structured guidance for this domain.`;
+    }
+
+    function getDomainWorkflow(domain, action) {
+      const workflows = {
+        code: `## Core Workflow
+
+### Step 1: Understand Requirements
+Parse the user's request to identify:
+- Target language/framework
+- Scope and constraints
+- Integration points
+- Quality expectations
+
+### Step 2: Plan Implementation
+Design the solution before writing code:
+- Identify key components/modules
+- Define interfaces and data flow
+- Consider edge cases and error handling
+- Plan for testability
+
+### Step 3: Implement
+Write production-grade code following these principles:
+- Prefer clarity over cleverness
+- Use explicit types and interfaces
+- Handle errors at every boundary
+- Document non-obvious decisions inline
+
+### Step 4: Verify
+Before presenting results:
+- Check for syntax errors
+- Verify logical correctness
+- Ensure consistent style with existing codebase
+- Confirm all requirements are met`,
+        
+        design: `## Core Workflow
+
+### Step 1: Analyze Context
+Understand the design constraints:
+- Existing design system and tokens
+- Target platform and viewport sizes
+- Accessibility requirements (WCAG AA minimum)
+- Brand guidelines and tone
+
+### Step 2: Structure the Solution
+Plan the implementation hierarchy:
+- Break into atomic components
+- Define spacing and layout tokens
+- Plan responsive behavior
+- Consider interaction states
+
+### Step 3: Execute with Precision
+Implement following design system principles:
+- Use established tokens (colors, spacing, typography)
+- Design all states: default, hover, focus, active, disabled, loading, error, empty
+- Ensure keyboard navigability
+- Validate contrast ratios
+
+### Step 4: Polish
+Final quality pass:
+- Check alignment and spacing consistency
+- Verify motion and transitions
+- Test at multiple viewports
+- Confirm no visual regressions`,
+        
+        security: `## Core Workflow
+
+### Step 1: Scope Definition
+Define the audit boundaries:
+- Target systems and endpoints
+- Threat model and risk appetite
+- Compliance requirements (OWASP, NIST, etc.)
+- Available tools and access levels
+
+### Step 2: Systematic Assessment
+Execute checks in priority order:
+1. Authentication and session management
+2. Input validation and sanitization
+3. Authorization and access control
+4. Data protection (at rest and in transit)
+5. Configuration and deployment security
+6. Dependency vulnerabilities
+
+### Step 3: Risk Classification
+Score findings using severity framework:
+- **Critical**: Immediate exploitation possible, high impact
+- **High**: Exploitation likely, significant impact
+- **Medium**: Exploitation possible, moderate impact
+- **Low**: Exploitation difficult or low impact
+- **Informational**: No direct risk, awareness item
+
+### Step 4: Remediation Planning
+For each finding, provide:
+- Specific fix with code/example
+- Verification steps to confirm resolution
+- References to relevant standards`,
+        
+        data: `## Core Workflow
+
+### Step 1: Requirement Analysis
+Understand the data task:
+- Source systems and schemas
+- Target output format and consumers
+- Data volume and performance constraints
+- Quality and freshness requirements
+
+### Step 2: Schema & Validation
+Define data contracts:
+- Expected columns, types, and constraints
+- Null handling and default values
+- Relationship validations
+- Business rule checks
+
+### Step 3: Implementation
+Build the data pipeline:
+- Extract from source with error handling
+- Transform with reproducible logic
+- Load with transaction safety
+- Log all operations for debugging
+
+### Step 4: Quality Assurance
+Validate outputs:
+- Row counts and checksums
+- Sample data spot-checks
+- Edge case coverage
+- Performance benchmarks`,
+        
+        devops: `## Core Workflow
+
+### Step 1: Environment Assessment
+Understand the deployment context:
+- Target platform and region
+- Existing infrastructure state
+- Network and security constraints
+- Rollback requirements
+
+### Step 2: Plan Changes
+Design the infrastructure update:
+- Resource definitions and dependencies
+- Configuration management approach
+- Secret handling strategy
+- Monitoring and alerting plan
+
+### Step 3: Implement Safely
+Apply changes with guardrails:
+- Use infrastructure-as-code
+- Plan before apply (dry-run)
+- Implement in stages (canary → production)
+- Maintain state backups
+
+### Step 4: Verify & Monitor
+Confirm successful deployment:
+- Health checks pass
+- Metrics within expected ranges
+- Logs show no errors
+- Rollback plan tested`,
+        
+        testing: `## Core Workflow
+
+### Step 1: Understand the Surface
+Identify what needs testing:
+- Entry points and public interfaces
+- State transitions and edge cases
+- Dependencies and external services
+- Performance and concurrency requirements
+
+### Step 2: Design Test Strategy
+Plan comprehensive coverage:
+- Unit tests for isolated logic
+- Integration tests for component interaction
+- E2E tests for critical user flows
+- Edge cases and error scenarios
+
+### Step 3: Implement Tests
+Write maintainable test code:
+- Use descriptive test names
+- Follow Arrange-Act-Assert pattern
+- Mock external dependencies
+- Keep tests independent and idempotent
+
+### Step 4: Execute & Report
+Run and analyze results:
+- Execute full suite locally
+- Check coverage reports
+- Document flaky tests
+- Prioritize failing tests by impact`,
+        
+        review: `## Core Workflow
+
+### Step 1: Context Gathering
+Understand the change:
+- Read PR description and linked issues
+- Check diff size and complexity
+- Review related prior changes
+- Note author and reviewer history
+
+### Step 2: Systematic Review
+Examine the code thoroughly:
+- Correctness and logic errors
+- Security implications
+- Performance characteristics
+- Maintainability and readability
+- Test coverage for new code
+
+### Step 3: Construct Feedback
+Format findings effectively:
+- Categorize by severity (blocking, suggestion, nit)
+- Provide specific line references
+- Suggest concrete improvements with examples
+- Explain the "why" behind each comment
+
+### Step 4: Follow Up
+Track to resolution:
+- Verify fixes address root cause
+- Confirm no new issues introduced
+- Approve when all blocking items resolved
+- Document patterns for team learning`,
+        
+        content: `## Core Workflow
+
+### Step 1: Audience & Purpose
+Define content parameters:
+- Target audience and expertise level
+- Desired tone (professional, casual, technical)
+- Key messages and call-to-action
+- Distribution channel constraints
+
+### Step 2: Research & Outline
+Build factual foundation:
+- Gather source material and data
+- Verify claims and statistics
+- Structure logical flow
+- Plan headings and sections
+
+### Step 3: Draft
+Create the initial content:
+- Lead with value proposition
+- Use clear, concise language
+- Include specific examples and data
+- Maintain consistent voice throughout
+
+### Step 4: Refine
+Polish for impact:
+- Trim unnecessary words
+- Verify grammar and spelling
+- Check formatting and links
+- Optimize for target platform (SEO, length, etc.)`,
+        
+        migration: `## Core Workflow
+
+### Step 1: Current State Analysis
+Map the starting point:
+- Inventory all affected components
+- Identify dependencies and integrations
+- Document known issues and technical debt
+- Assess data volume and complexity
+
+### Step 2: Target State Design
+Define the destination:
+- New architecture and patterns
+- Compatibility requirements
+- Performance and scalability goals
+- Rollback strategy
+
+### Step 3: Migration Planning
+Create step-by-step plan:
+- Order of operations with dependencies
+- Data migration scripts and validation
+- Feature flags for gradual rollout
+- Communication plan for stakeholders
+
+### Step 4: Execute & Validate
+Implement with safety:
+- Test migration in isolated environment
+- Run with monitoring and alerting
+- Validate data integrity at each step
+- Keep rollback option available until confirmed`,
+        
+        optimization: `## Core Workflow
+
+### Step 1: Baseline & Identify
+Measure before changing:
+- Profile current performance
+- Identify bottlenecks with data
+- Prioritize by impact × effort
+- Set measurable improvement targets
+
+### Step 2: Hypothesize
+Form theories about root causes:
+- Analyze flame graphs and traces
+- Review algorithmic complexity
+- Check resource utilization patterns
+- Consider caching opportunities
+
+### Step 3: Implement Changes
+Apply optimizations systematically:
+- Make one change at a time
+- Document rationale for each change
+- Maintain readability and maintainability
+- Add monitoring for affected metrics
+
+### Step 4: Measure & Validate
+Confirm improvements:
+- Re-run benchmarks under same conditions
+- Check for regressions elsewhere
+- Verify on representative hardware
+- Document gains for future reference`,
+        
+        general: `## Core Workflow
+
+### Step 1: Understand the Task
+Parse the user's request carefully:
+- Identify explicit and implicit requirements
+- Determine constraints and boundaries
+- Clarify ambiguities before proceeding
+- Confirm success criteria
+
+### Step 2: Plan the Approach
+Design a systematic solution:
+- Break into discrete steps
+- Identify required tools and resources
+- Consider edge cases and failure modes
+- Estimate effort and complexity
+
+### Step 3: Execute Methodically
+Implement the planned approach:
+- Follow steps in logical order
+- Verify intermediate results
+- Handle errors gracefully
+- Document decisions and deviations
+
+### Step 4: Validate & Deliver
+Confirm quality before completion:
+- Check against original requirements
+- Test edge cases
+- Review for completeness
+- Present results clearly`,
+      };
+      
+      return workflows[domain] || workflows.general;
+    }
+
+    function getAntiPatterns(domain) {
+      const patterns = {
+        code: `## Anti-Patterns
+
+**NEVER**:
+- Skip error handling for "happy path only" code
+- Use magic numbers or hardcoded values without explanation
+- Ignore type safety — always use proper types and interfaces
+- Write overly clever one-liners that sacrifice readability
+- Leave TODO comments without creating tracked issues
+- Copy-paste code instead of extracting reusable functions
+- Skip writing tests for "simple" changes
+- Make large, unreviewable PRs — prefer incremental changes
+- Optimize prematurely without profiling data
+- Break backward compatibility without deprecation warnings`,
+        
+        design: `## Anti-Patterns
+
+**NEVER**:
+- Use color alone to convey information (accessibility violation)
+- Design only the default state — always handle all interaction states
+- Ignore keyboard navigation and focus management
+- Use placeholder text as labels
+- Create touch targets smaller than 44×44px
+- Use low contrast ratios (< 4.5:1 for normal text)
+- Rely solely on hover for critical actions
+- Use generic stock imagery without purpose
+- Break established design system patterns without justification
+- Design desktop-first without mobile considerations`,
+        
+        security: `## Anti-Patterns
+
+**NEVER**:
+- Trust user input — always validate and sanitize
+- Store secrets in code, logs, or environment variables without encryption
+- Skip authentication for "internal" endpoints
+- Use weak or default credentials
+- Ignore security warnings from dependency scanners
+- Log sensitive data (passwords, tokens, PII)
+- Assume HTTPS alone is sufficient for all security needs
+- Skip security review for "small" changes
+- Use outdated cryptographic algorithms (MD5, SHA1, DES)
+- Disable security features to fix unrelated issues`,
+        
+        data: `## Anti-Patterns
+
+**NEVER**:
+- Run destructive queries without WHERE clauses in production
+- Skip data validation before loading
+- Hardcode connection strings or credentials
+- Process large datasets in memory without streaming
+- Ignore data type conversions and precision loss
+- Skip backup before migration operations
+- Use SELECT * in production queries
+- Ignore null handling and missing data scenarios
+- Run untested scripts directly on production databases
+- Fail silently — always log errors and anomalies`,
+        
+        devops: `## Anti-Patterns
+
+**NEVER**:
+- Apply infrastructure changes without dry-run/plan first
+- Store secrets in plain text in repositories
+- Skip health checks and monitoring
+- Make production changes during peak hours without approval
+- Ignore rollback procedures
+- Use latest tags for container images in production
+- Skip resource limits and quotas
+- Apply changes manually that should be automated
+- Ignore cost implications of infrastructure choices
+- Deploy without automated tests passing`,
+        
+        testing: `## Anti-Patterns
+
+**NEVER**:
+- Write tests that depend on execution order
+- Mock what you don't own without understanding implications
+- Skip testing error conditions and edge cases
+- Use sleep/wait in tests instead of proper synchronization
+- Leave failing tests commented out instead of fixing
+- Test implementation details instead of behavior
+- Create brittle tests that break on every refactor
+- Ignore flaky tests — they erode trust in the suite
+- Skip integration tests assuming unit tests are sufficient
+- Write tests after shipping to production`,
+        
+        review: `## Anti-Patterns
+
+**NEVER**:
+- Review only the diff without understanding context
+- Leave vague comments like "this is wrong" without explanation
+- Block PRs on subjective style preferences
+- Ignore security implications in reviews
+- Rush reviews to meet arbitrary deadlines
+- Skip reviewing tests and documentation changes
+- Make personal attacks or use dismissive language
+- Approve without actually reading the changes
+- Ignore performance implications of algorithm choices
+- Skip verifying that claimed fixes actually work`,
+        
+        content: `## Anti-Patterns
+
+**NEVER**:
+- Use jargon without explanation for general audiences
+- Make claims without supporting evidence
+- Ignore SEO fundamentals for web content
+- Use passive voice when active voice is clearer
+- Skip proofreading and fact-checking
+- Create walls of text without visual breaks
+- Use clickbait titles that misrepresent content
+- Ignore accessibility in content formatting
+- Copy content without attribution or modification
+- Skip checking how content renders on mobile`,
+        
+        migration: `## Anti-Patterns
+
+**NEVER**:
+- Migrate without a tested rollback plan
+- Skip testing data integrity after migration
+- Run migrations during peak usage without coordination
+- Ignore backward compatibility requirements
+- Migrate all data at once without incremental validation
+- Skip communicating changes to affected users
+- Assume the new system handles edge cases like the old one
+- Ignore performance differences between old and new systems
+- Skip documenting migration decisions and gotchas
+- Delete old infrastructure before confirming new system stability`,
+        
+        optimization: `## Anti-Patterns
+
+**NEVER**:
+- Optimize without measuring first
+- Sacrifice code readability for marginal gains
+- Apply optimizations globally without profiling specific bottlenecks
+- Ignore algorithmic complexity in favor of micro-optimizations
+- Skip A/B testing when comparing approaches
+- Cache everything indiscriminately
+- Use premature parallelization without understanding overhead
+- Ignore memory usage when optimizing for speed
+- Skip verifying correctness after performance changes
+- Assume yesterday's optimizations still apply today`,
+        
+        general: `## Anti-Patterns
+
+**NEVER**:
+- Skip planning and jump straight to execution
+- Ignore edge cases and error scenarios
+- Hardcode values that should be configurable
+- Skip validation and verification steps
+- Make assumptions without confirming with the user
+- Produce output that's inconsistent with prior context
+- Ignore performance or scalability constraints
+- Skip documenting non-obvious decisions
+- Leave tasks partially complete without clear next steps
+- Sacrifice correctness for speed`,
+      };
+      
+      return patterns[domain] || patterns.general;
+    }
+
+    function getVerificationSteps(domain) {
+      const steps = {
+        code: `## Verification Steps
+
+Before marking any code task complete, verify:
+
+1. **Syntax & Compilation**: Code compiles without errors or warnings
+2. **Logic Correctness**: Walk through with sample inputs, including edge cases
+3. **Type Safety**: All functions have proper types; no \\\"any\\\" escapes without comment
+4. **Error Handling**: Every async operation has try/catch; every promise is awaited
+5. **Test Coverage**: New code has corresponding tests; all tests pass
+6. **Style Consistency**: Code follows project conventions (run linter)
+7. **Documentation**: Complex logic has inline comments; public APIs have docstrings
+8. **Security Scan**: No secrets in code; no obvious injection vulnerabilities`,
+        
+        design: `## Verification Steps
+
+Before finalizing any design deliverable, verify:
+
+1. **Accessibility**: Run axe or Lighthouse; check contrast ratios; tab through all interactions
+2. **Responsive**: Test at 320px, 768px, 1024px, 1440px minimum
+3. **States**: Confirm all states designed: default, hover, focus, active, disabled, loading, error, empty
+4. **Consistency**: Verify alignment with design system tokens and existing patterns
+5. **Performance**: Check image sizes; verify no layout shift; animations run at 60fps
+6. **Content**: All placeholder text replaced; copy reviewed for clarity
+7. **Browser**: Test in Chrome, Safari, Firefox latest versions
+8. **Interaction**: Every interactive element is reachable and functional via keyboard`,
+        
+        security: `## Verification Steps
+
+Before concluding any security assessment, verify:
+
+1. **Coverage**: All in-scope systems were examined; out-of-scope items documented
+2. **Validation**: Each finding manually verified (not just tool output)
+3. **Severity**: Risk ratings justified with exploitability × impact analysis
+4. **Remediation**: Every critical and high finding has specific fix guidance
+5. **Regression**: Fixed vulnerabilities re-tested and confirmed resolved
+6. **False Positives**: Tool findings manually reviewed; false positives noted
+7. **Documentation**: Report includes evidence, references, and reproduction steps
+8. **Sign-off**: Appropriate stakeholders review and acknowledge findings`,
+        
+        data: `## Verification Steps
+
+Before declaring any data task complete, verify:
+
+1. **Row Counts**: Source and target record counts match (within expected variance)
+2. **Schema Compliance**: All columns present with correct types and constraints
+3. **Sample Validation**: Spot-check random samples for data integrity
+4. **Null Handling**: Missing data handled according to business rules
+5. **Business Rules**: Key calculations and transformations produce correct results
+6. **Performance**: Query/migration completes within acceptable time window
+7. **Error Logs**: No unhandled exceptions or warnings in execution logs
+8. **Downstream Check**: Confirm consuming systems can read output correctly`,
+        
+        devops: `## Verification Steps
+
+Before considering any deployment complete, verify:
+
+1. **Plan Review**: Infrastructure changes reviewed and approved
+2. **Dry-Run**: terraform plan / helm diff / etc. output reviewed with no surprises
+3. **Health Checks**: All services report healthy status
+4. **Smoke Tests**: Critical user paths function correctly
+5. **Metrics**: CPU, memory, latency within expected baselines
+6. **Logs**: No error spikes or unusual patterns
+7. **Rollback Test**: Confirm rollback procedure works (in staging at minimum)
+8. **Monitoring**: Alerts configured for new resources; dashboards updated`,
+        
+        testing: `## Verification Steps
+
+Before considering testing work complete, verify:
+
+1. **Suite Pass**: All tests pass locally and in CI
+2. **Coverage**: New code has >80% line coverage; critical paths fully covered
+3. **Isolation**: Tests don't depend on execution order or external state
+4. **Speed**: No test takes >5 seconds without good reason
+5. **Readability**: Test names clearly describe behavior being verified
+6. **Mocking**: External dependencies properly mocked; no real API calls in unit tests
+7. **Edge Cases**: Null, empty, maximum, and invalid inputs tested
+8. **Flakiness**: Suite runs green 5 times in a row`,
+        
+        review: `## Verification Steps
+
+Before approving any pull request, verify:
+
+1. **Requirements**: Code satisfies all stated requirements and acceptance criteria
+2. **Logic**: No obvious bugs, race conditions, or infinite loops
+3. **Security**: No injection risks, unsafe deserialization, or secret exposure
+4. **Tests**: New functionality has tests; all tests pass
+5. **Style**: Code follows project conventions; no linter errors
+6. **Documentation**: Complex changes explained; public APIs documented
+7. **Scope**: Changes limited to stated purpose; no unrelated modifications
+8. **Performance**: No obvious N+1 queries, memory leaks, or algorithmic issues`,
+        
+        content: `## Verification Steps
+
+Before publishing any content, verify:
+
+1. **Accuracy**: All facts, statistics, and claims verified against sources
+2. **Grammar**: Spelling and grammar checked (use Grammarly or similar)
+3. **Tone**: Voice consistent with brand guidelines and audience expectations
+4. **Formatting**: Headings, lists, code blocks render correctly
+5. **Links**: All hyperlinks functional and point to correct destinations
+6. **Images**: Alt text present; images optimized and licensed
+7. **SEO**: Title, meta description, and headings optimized
+8. **Preview**: Content reviewed in final publishing format/platform`,
+        
+        migration: `## Verification Steps
+
+Before declaring migration complete, verify:
+
+1. **Data Integrity**: Row counts, checksums, and sample records match
+2. **Functionality**: All critical user paths work in new system
+3. **Performance**: Response times equal or better than baseline
+4. **Rollback**: Rollback procedure tested and documented
+5. **Monitoring**: Alerts and dashboards functional for new system
+6. **Documentation**: Runbooks updated; team trained on new system
+7. **Stakeholder Sign-off**: Business owners confirm satisfaction
+8. **Stability**: System stable for 48+ hours before decommissioning old system`,
+        
+        optimization: `## Verification Steps
+
+Before declaring optimization work complete, verify:
+
+1. **Baseline Comparison**: Before/after measurements under identical conditions
+2. **Correctness**: All existing tests still pass; no functional regressions
+3. **Target Met**: Improvement meets or exceeds stated goal
+4. **No Degradation**: Other metrics (memory, CPU, maintainability) not harmed
+5. **Production Valid**: Improvement confirmed in production-like environment
+6. **Documentation**: Changes documented with measured gains
+7. **Monitoring**: New metrics tracked; alerts for regression configured
+8. **Review**: Code review confirms approach is maintainable`,
+        
+        general: `## Verification Steps
+
+Before concluding any task, verify:
+
+1. **Requirements Met**: All stated requirements satisfied
+2. **Edge Cases**: Unusual inputs and boundary conditions handled
+3. **Error Handling**: Failure modes graceful and informative
+4. **Consistency**: Output style matches project conventions
+5. **Completeness**: No partial solutions without clear next steps
+6. **Quality**: Output reviewed for accuracy and polish
+7. **User Value**: Solution actually solves the user's problem
+8. **Documentation**: Non-obvious decisions explained`,
+      };
+      
+      return steps[domain] || steps.general;
+    }
+
+    function getExampleInvocations(domain, action, skillName) {
+      const examples = {
+        code: `## Example Invocations
+
+**Basic usage:**
+\`\`\`
+Use the ${skillName} skill to create a React form component with validation
+\`\`\`
+
+**With specific constraints:**
+\`\`\`
+Build a TypeScript utility that parses CSV files with streaming support. Handle malformed rows gracefully and validate required columns.
+\`\`\`
+
+**Integration scenario:**
+\`\`\`
+Generate a Python FastAPI endpoint that accepts file uploads, validates file types, and stores metadata in PostgreSQL. Include proper error handling and rate limiting.
+\`\`\``,
+        
+        design: `## Example Invocations
+
+**Basic usage:**
+\`\`\`
+Use the ${skillName} skill to design a settings page for a mobile app
+\`\`\`
+
+**With specific constraints:**
+\`\`\`
+Create a dashboard card component that displays real-time metrics. Include loading, error, and empty states. Follow the existing design system tokens.
+\`\`\`
+
+**Complex scenario:**
+\`\`\`
+Design a multi-step onboarding flow for a SaaS product. Include progress indication, skip options, and responsive layouts for desktop and mobile.
+\`\`\``,
+        
+        security: `## Example Invocations
+
+**Basic usage:**
+\`\`\`
+Run a security audit on the authentication module
+\`\`\`
+
+**With specific constraints:**
+\`\`\`
+Audit the API endpoints for OWASP Top 10 vulnerabilities. Focus on injection flaws, broken authentication, and sensitive data exposure. Output a prioritized remediation plan.
+\`\`\`
+
+**Compliance scenario:**
+\`\`\`
+Perform a GDPR compliance review of the data handling pipeline. Check for lawful basis of processing, data minimization, and subject access request handling.
+\`\`\``,
+        
+        data: `## Example Invocations
+
+**Basic usage:**
+\`\`\`
+Generate a SQL query to find monthly active users
+\`\`\`
+
+**With specific constraints:**
+\`\`\`
+Build a data pipeline that ingests webhook events, validates the schema, aggregates by user, and writes daily summaries to BigQuery. Include error handling and idempotency.
+\`\`\`
+
+**Analytics scenario:**
+\`\`\`
+Create a retention analysis query cohorting users by signup week. Calculate 1-day, 7-day, and 30-day retention rates with confidence intervals.
+\`\`\``,
+        
+        devops: `## Example Invocations
+
+**Basic usage:**
+\`\`\`
+Deploy the staging environment with the latest Docker images
+\`\`\`
+
+**With specific constraints:**
+\`\`\`
+Set up a CI/CD pipeline for a Node.js microservice. Include automated testing, container building, vulnerability scanning, and deployment to Kubernetes with blue-green strategy.
+\`\`\`
+
+**Infrastructure scenario:**
+\`\`\`
+Create Terraform modules for a multi-region AWS setup with VPC peering, RDS read replicas, and CloudFront distribution. Include cost estimates and security group rules.
+\`\`\``,
+        
+        testing: `## Example Invocations
+
+**Basic usage:**
+\`\`\`
+Write unit tests for the user registration function
+\`\`\`
+
+**With specific constraints:**
+\`\`\`
+Create an E2E test suite for the checkout flow using Playwright. Cover guest checkout, logged-in checkout, payment failure, and cart abandonment recovery.
+\`\`\`
+
+**Performance scenario:**
+\`\`\`
+Design load tests for the search API. Simulate 1000 concurrent users with realistic query patterns. Identify bottlenecks and suggest optimizations.
+\`\`\``,
+        
+        review: `## Example Invocations
+
+**Basic usage:**
+\`\`\`
+Review the pull request for the payment integration
+\`\`\`
+
+**With specific constraints:**
+\`\`\`
+Review this large refactor PR focusing on: backward compatibility, test coverage, and performance impact. Flag any security concerns and suggest architectural improvements.
+\`\`\`
+
+**Team scenario:**
+\`\`\`
+Review the API design PR from a junior developer. Check REST conventions, error response consistency, and OpenAPI spec accuracy. Provide educational feedback.
+\`\`\``,
+        
+        content: `## Example Invocations
+
+**Basic usage:**
+\`\`\`
+Write a product announcement for the new dashboard feature
+\`\`\`
+
+**With specific constraints:**
+\`\`\`
+Create technical documentation for the GraphQL API. Include query examples, mutation patterns, error handling, and rate limit information. Target audience: frontend developers.
+\`\`\`
+
+**Marketing scenario:**
+\`\`\`
+Write a landing page hero section for a developer tools product. Include value proposition, social proof, and clear call-to-action. Optimize for conversion and SEO.
+\`\`\``,
+        
+        migration: `## Example Invocations
+
+**Basic usage:**
+\`\`\`
+Plan the migration from REST to GraphQL for the user service
+\`\`\`
+
+**With specific constraints:**
+\`\`\`
+Migrate a PostgreSQL database from self-hosted to AWS RDS with zero downtime. Include replication setup, cutover strategy, and rollback plan. Handle 500GB of data.
+\`\`\`
+
+**Framework scenario:**
+\`\`\`
+Plan the migration from Express.js to Fastify for the API gateway. Identify breaking changes, performance gains, and required dependency updates. Include incremental migration strategy.
+\`\`\``,
+        
+        optimization: `## Example Invocations
+
+**Basic usage:**
+\`\`\`
+Optimize the page load time for the product listing
+\`\`\`
+
+**With specific constraints:**
+\`\`\`
+Profile and optimize a slow SQL query that's timing out on the reports page. The query joins 5 tables and aggregates 2M rows. Target: <2 seconds.
+\`\`\`
+
+**Frontend scenario:**
+\`\`\`
+Optimize React rendering performance for a real-time data table with 10K rows. Address unnecessary re-renders, virtualize if needed, and optimize bundle size.
+\`\`\``,
+        
+        general: `## Example Invocations
+
+**Basic usage:**
+\`\`\`
+Use the ${skillName} skill to help with this task
+\`\`\`
+
+**With specific constraints:**
+\`\`\`
+Work through this workflow step by step, verifying each intermediate result before proceeding. If you encounter ambiguities, ask clarifying questions.
+\`\`\`
+
+**Complex scenario:**
+\`\`\`
+Apply the full workflow to this problem. Include planning, execution, verification, and documentation. Highlight any risks or trade-offs I should be aware of.
+\`\`\``,
+      };
+      
+      return examples[domain] || examples.general;
+    }
+
+    function generateSkillMarkdown(description) {
+      const domain = detectDomain(description);
+      const action = detectAction(description);
+      const skillName = generateSkillName(description, domain, action);
+      const skillDescription = generateDescription(description, domain, action);
+      
+      const workflow = getDomainWorkflow(domain, action);
+      const antiPatterns = getAntiPatterns(domain);
+      const verification = getVerificationSteps(domain);
+      const examples = getExampleInvocations(domain, action, skillName);
+      
+      const markdown = `---
+name: ${skillName}
+description: ${skillDescription}
+---
+
+# ${skillName.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}
+
+${description.trim().replace(/\.$/, '')}.
+
+## When to Use This Skill
+
+Trigger this skill when the user requests assistance with:
+- ${description.trim().replace(/\.$/, '')}
+- Related ${domain} tasks requiring structured guidance
+- ${action}-oriented work in this domain
+
+## ${workflow.replace(/^##\s+/, '')}
+
+${antiPatterns}
+
+${verification}
+
+${examples}
+
+## Progressive Disclosure
+
+This skill follows progressive disclosure principles:
+
+1. **Metadata** (name + description) — Always in context (~100 words)
+2. **SKILL.md body** — Loaded when skill triggers
+3. **Bundled resources** — Referenced as needed
+
+For complex workflows, consider splitting detailed reference material into separate files:
+
+\`\`\`
+${skillName}/
+├── SKILL.md (this file)
+└── references/
+    └── advanced-patterns.md (optional)
+\`\`\`
+
+## Skill Maintenance
+
+**Iteration workflow:**
+
+1. Use this skill on real tasks
+2. Notice struggles or inefficiencies
+3. Identify how SKILL.md should be updated
+4. Implement changes and test again
+
+Keep SKILL.md under 500 lines. Move detailed reference material to separate files when approaching this limit.`;
+
+      return {
+        markdown,
+        name: skillName,
+        domain,
+        sections: [
+          'YAML Frontmatter',
+          'Overview',
+          'When to Use',
+          'Core Workflow',
+          'Anti-Patterns',
+          'Verification Steps',
+          'Example Invocations',
+          'Progressive Disclosure',
+          'Skill Maintenance'
+        ],
+        lines: markdown.split('\n').length
+      };
+    }
+
+    function escapeHtml(text) {
+      const div = document.createElement('div');
+      div.textContent = text;
+      return div.innerHTML;
+    }
+
+    function syntaxHighlight(markdown) {
+      const lines = markdown.split('\n');
+      return lines.map(line => {
+        let html = escapeHtml(line);
+        
+        // YAML frontmatter
+        if (line.match(/^---\s*$/)) {
+          html = `<span class="syntax-yaml">${html}</span>`;
+        }
+        else if (line.match(/^(name|description):/)) {
+          const [key, ...rest] = line.split(':');
+          html = `<span class="syntax-key">${escapeHtml(key)}</span><span class="syntax-yaml">:</span><span class="syntax-string">${escapeHtml(rest.join(':'))}</span>`;
+        }
+        // Headings
+        else if (line.match(/^#{1,3}\s/)) {
+          html = `<span class="syntax-heading">${html}</span>`;
+        }
+        // Code blocks
+        else if (line.match(/^\`\`\`/)) {
+          html = `<span class="syntax-code">${html}</span>`;
+        }
+        // Bold text
+        else if (line.match(/\*\*.+?\*\*/)) {
+          html = html.replace(/\*\*(.+?)\*\*/g, '<span class="syntax-bold">**$1**</span>');
+        }
+        // Bullet points and numbered lists
+        else if (line.match(/^[\s]*[-*]\s/) || line.match(/^[\s]*\d+\.\s/)) {
+          html = `<span class="syntax-bullet">${html}</span>`;
+        }
+        
+        return `<div class="leading-relaxed">${html || '&nbsp;'}</div>`;
+      }).join('');
+    }
+
+    // ============================================================
+    // UI Interactions
+    // ============================================================
+
+    const descriptionInput = document.getElementById('description-input');
+    const generateBtn = document.getElementById('generate-btn');
+    const clearBtn = document.getElementById('clear-btn');
+    const outputSection = document.getElementById('output-section');
+    const previewPanel = document.getElementById('preview-panel');
+    const copyBtn = document.getElementById('copy-btn');
+    const copyLabel = document.getElementById('copy-label');
+    const downloadBtn = document.getElementById('download-btn');
+    const metaName = document.getElementById('meta-name');
+    const metaDomain = document.getElementById('meta-domain');
+    const metaSections = document.getElementById('meta-sections');
+    const metaLines = document.getElementById('meta-lines');
+
+    let currentMarkdown = '';
+    let currentName = '';
+
+    // Example chips
+    document.querySelectorAll('[data-example]').forEach(chip => {
+      chip.addEventListener('click', () => {
+        const id = chip.dataset.example;
+        descriptionInput.value = EXAMPLE_PROMPTS[id];
+        descriptionInput.focus();
+        // Highlight selected chip
+        document.querySelectorAll('[data-example]').forEach(c => c.classList.remove('material-chip--active'));
+        chip.classList.add('material-chip--active');
+      });
+    });
+
+    generateBtn.addEventListener('click', () => {
+      const description = descriptionInput.value.trim();
+      if (!description) {
+        descriptionInput.focus();
+        descriptionInput.style.borderColor = 'var(--color-error)';
+        setTimeout(() => {
+          descriptionInput.style.borderColor = '';
+        }, 2000);
+        return;
+      }
+
+      // Loading state
+      const originalBtnContent = generateBtn.innerHTML;
+      generateBtn.innerHTML = `<svg class="animate-spin" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg> Generating...`;
+      generateBtn.disabled = true;
+
+      // Small delay for UX
+      setTimeout(() => {
+      const result = generateSkillMarkdown(description);
+      currentMarkdown = result.markdown;
+      currentName = result.name;
+
+      // Update preview
+      previewPanel.innerHTML = syntaxHighlight(result.markdown);
+
+      // Update meta
+      metaName.textContent = result.name;
+      metaDomain.textContent = result.domain.charAt(0).toUpperCase() + result.domain.slice(1);
+      metaSections.innerHTML = result.sections.map(s => 
+        `<span class="material-chip text-xs">${s}</span>`
+      ).join('');
+      metaLines.textContent = `~${result.lines} lines`;
+
+      // Show output
+      outputSection.classList.remove('hidden');
+      outputSection.classList.add('animate-slide-up');
+      
+      // Scroll to output
+      setTimeout(() => {
+        outputSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 100);
+
+      // Restore button
+      generateBtn.innerHTML = originalBtnContent;
+      generateBtn.disabled = false;
+      }, 400);
+    });
+
+    clearBtn.addEventListener('click', () => {
+      descriptionInput.value = '';
+      outputSection.classList.add('hidden');
+      document.querySelectorAll('[data-example]').forEach(c => c.classList.remove('material-chip--active'));
+      descriptionInput.focus();
+    });
+
+    document.getElementById('try-example-btn').addEventListener('click', () => {
+      descriptionInput.value = EXAMPLE_PROMPTS[1];
+      document.querySelectorAll('[data-example]').forEach(c => c.classList.remove('material-chip--active'));
+      document.querySelector('[data-example="1"]').classList.add('material-chip--active');
+      generateBtn.click();
+    });
+
+    copyBtn.addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(currentMarkdown);
+        copyLabel.textContent = 'Copied!';
+        copyBtn.classList.add('material-chip--active');
+        setTimeout(() => {
+          copyLabel.textContent = 'Copy to clipboard';
+          copyBtn.classList.remove('material-chip--active');
+        }, 2000);
+      } catch (err) {
+        // Fallback
+        const textarea = document.createElement('textarea');
+        textarea.value = currentMarkdown;
+        document.body.appendChild(textarea);
+        textarea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textarea);
+        copyLabel.textContent = 'Copied!';
+        setTimeout(() => {
+          copyLabel.textContent = 'Copy to clipboard';
+        }, 2000);
+      }
+    });
+
+    downloadBtn.addEventListener('click', () => {
+      const blob = new Blob([currentMarkdown], { type: 'text/markdown' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `SKILL.md`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    });
+
+    // Keyboard shortcut
+    document.addEventListener('keydown', (e) => {
+      if ((e.metaKey || e.ctrlKey) && e.key === 'Enter') {
+        generateBtn.click();
+      }
+    });
+
+    // Recent Skills with localStorage
+    const recentSection = document.getElementById('recent-skills');
+    const recentGrid = document.getElementById('recent-skills-grid');
+    const clearRecentBtn = document.getElementById('clear-recent-btn');
+    const STORAGE_KEY = 'skillforge-recent';
+    const MAX_RECENT = 6;
+
+    function loadRecent() {
+      try {
+        return JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+      } catch {
+        return [];
+      }
+    }
+
+    function saveRecent(skills) {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(skills.slice(0, MAX_RECENT)));
+    }
+
+    function addRecent(name, domain, description, markdown) {
+      const recent = loadRecent();
+      const existing = recent.findIndex(r => r.name === name);
+      if (existing >= 0) recent.splice(existing, 1);
+      recent.unshift({ name, domain, description, markdown, date: new Date().toISOString() });
+      saveRecent(recent);
+      renderRecent();
+    }
+
+    function renderRecent() {
+      const recent = loadRecent();
+      if (recent.length === 0) {
+        recentSection.classList.add('hidden');
+        return;
+      }
+      recentSection.classList.remove('hidden');
+      recentGrid.innerHTML = recent.map(skill => `
+        <div class="material-card p-5 cursor-pointer hover:shadow-[var(--shadow-3)] transition-all group" data-skill="${encodeURIComponent(skill.name)}">
+          <div class="flex items-start justify-between mb-3">
+            <div class="w-10 h-10 rounded-xl bg-[var(--color-primary-container)] text-[var(--color-on-primary-container)] flex items-center justify-center text-lg font-bold shrink-0">
+              ${skill.name.charAt(0).toUpperCase()}
+            </div>
+            <span class="material-chip text-xs">${skill.domain}</span>
+          </div>
+          <h3 class="font-semibold text-[var(--color-on-surface)] mb-1 truncate">${skill.name}</h3>
+          <p class="text-sm text-[var(--color-on-surface-variant)] line-clamp-2 mb-3">${skill.description}</p>
+          <div class="flex items-center gap-2 text-xs text-[var(--color-outline)]">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 8v4l3 3m6-3a9 9 0 1 1-18 0 9 9 0 0 1 18 0z"/></svg>
+            ${new Date(skill.date).toLocaleDateString()}
+          </div>
+        </div>
+      `).join('');
+
+      recentGrid.querySelectorAll('[data-skill]').forEach(card => {
+        card.addEventListener('click', () => {
+          const name = decodeURIComponent(card.dataset.skill);
+          const skill = loadRecent().find(r => r.name === name);
+          if (skill) {
+            descriptionInput.value = skill.description;
+            currentMarkdown = skill.markdown;
+            currentName = skill.name;
+            previewPanel.innerHTML = syntaxHighlight(skill.markdown);
+            metaName.textContent = skill.name;
+            metaDomain.textContent = skill.domain.charAt(0).toUpperCase() + skill.domain.slice(1);
+            metaSections.innerHTML = ['YAML Frontmatter', 'Overview', 'When to Use', 'Core Workflow', 'Anti-Patterns', 'Verification Steps', 'Example Invocations', 'Progressive Disclosure', 'Skill Maintenance'].map(s => 
+              `<span class="material-chip text-xs">${s}</span>`
+            ).join('');
+            metaLines.textContent = `~${skill.markdown.split('\n').length} lines`;
+            outputSection.classList.remove('hidden');
+            outputSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        });
+      });
+    }
+
+    clearRecentBtn.addEventListener('click', () => {
+      localStorage.removeItem(STORAGE_KEY);
+      renderRecent();
+    });
+
+    // Save to recent when generating
+    const originalGenerateBtnHandler = generateBtn.onclick;
+    // We hook into the existing handler by wrapping the result generation
+    const originalGenerateFn = generateSkillMarkdown;
+    generateSkillMarkdown = function(description) {
+      const result = originalGenerateFn(description);
+      addRecent(result.name, result.domain, description, result.markdown);
+      return result;
+    };
+
+    renderRecent();
+
+    // Console easter egg
+    console.log('%c SkillForge ', 'background: #B84D38; color: white; padding: 4px 12px; border-radius: 100px; font-weight: bold;');
+    console.log('%cDescribe any workflow and generate production-grade SKILL.md files. Try Cmd/Ctrl + Enter to generate.', 'color: #49454F;');
+  </script>
+</Layout>
