@@ -2,7 +2,7 @@
 
 > **This is a free, open-source template.** Use it however you want — for your own projects, your portfolio, your startup, or your clients. No attribution required, but a ⭐ is always appreciated!
 
-**Live demo:** [https://noCode-Human.github.io/skillforge](https://noCode-Human.github.io/skillforge) *(update after deploying)*
+![SkillForge Screenshot](./screenshot.png)
 
 A beautiful, client-side web tool that turns any workflow description into a production-grade `SKILL.md` file. Built with Astro and Tailwind CSS.
 
